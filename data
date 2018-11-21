@@ -15,6 +15,20 @@ minikube start
 Great! You now have a running Kubernetes cluster in your online terminal. 
 Minikube started a virtual machine for you, and a Kubernetes cluster is now running in that VM.
 
+ minikube version
+minikube version: v0.28.2
+$ minikube start
+Starting local Kubernetes v1.10.0 cluster...
+Starting VM...
+Getting VM IP address...
+Moving files into cluster...
+Setting up certs...
+Connecting to cluster...
+Setting up kubeconfig...
+Starting cluster components...
+Kubectl is now configured to use the cluster.
+Loading cached images from config file
+
 Step 2 - Cluster Info
 The cluster can be interacted with using the kubectl CLI. This is the main approach used for managing Kubernetes and the applications 
 running on top of the cluster.
@@ -23,3 +37,11 @@ To view the nodes in the cluster using kubectl get nodes
 If the node is marked as NotReady then it is still starting the components.
 This command shows all nodes that can be used to host our applications. Now we have only one node, 
 and we can see that it’s status is ready (it is ready to accept applications for deployment).
+
+$ kubectl cluster-info
+Kubernetes master is running at https://172.17.0.118:8443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+$ kubectl get nodes
+NAME       STATUS    ROLES     AGE       VERSION
+minikube   Ready     <none>    3m        v1.10.0

@@ -1,3 +1,25 @@
 To learn Kubernetes 
 https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster
 https://www.katacoda.com/sandeepkaundinya
+
+Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop 
+for users looking to try out Kubernetes or develop with it day-to-day.
+More details can be found at https://github.com/kubernetes/minikube
+
+Step 1 - Start Minikube
+Minikube has been installed and configured in the environment. Check that it is properly installed, by running the minikube version 
+command:
+minikube version
+Start the cluster, by running the minikube start command:
+minikube start
+Great! You now have a running Kubernetes cluster in your online terminal. 
+Minikube started a virtual machine for you, and a Kubernetes cluster is now running in that VM.
+
+Step 2 - Cluster Info
+The cluster can be interacted with using the kubectl CLI. This is the main approach used for managing Kubernetes and the applications 
+running on top of the cluster.
+Details of the cluster and its health status can be discovered via kubectl cluster-info
+To view the nodes in the cluster using kubectl get nodes
+If the node is marked as NotReady then it is still starting the components.
+This command shows all nodes that can be used to host our applications. Now we have only one node, 
+and we can see that it’s status is ready (it is ready to accept applications for deployment).

@@ -45,3 +45,28 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 $ kubectl get nodes
 NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     <none>    3m        v1.10.0
+
+Step 3 - Deploy Containers
+With a running Kubernetes cluster, containers can now be deployed.
+Using kubectl run, it allows containers to be deployed onto the cluster - kubectl run first-deployment --image=katacoda/docker-http-server --port=80
+The status of the deployment can be discovered via the running Pods - kubectl get pods
+Once the container is running it can be exposed via different networking options, depending on requirements. One possible solution is NodePort, that provides a dynamic port to a container.
+kubectl expose deployment first-deployment --port=80 --type=NodePort
+The command below finds the allocated port and executes a HTTP request.
+export PORT=$(kubectl get svc first-deployment -o go-template='{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}')
+echo "Accessing host01:$PORT"
+curl host01:$PORT
+The results is the container that processed the request.
+
+$ kubectl run first-deployment --image=katacoda/docker-http-server --port=80
+deployment.apps/first-deployment created
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+first-deployment-59f6bb4956-nrs6n   1/1       Running   0          16s
+$ kubectl expose deployment first-deployment --port=80 --type=NodePort
+service/first-deployment exposed
+$ export PORT=$(kubectl get svc first-deployment -o go-template='{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}')
+$ echo "Accessing host01:$PORT"
+Accessing host01:31938
+$ curl host01:$PORT
+<h1>This request was processed by host: first-deployment-59f6bb4956-nrs6n</h1>
